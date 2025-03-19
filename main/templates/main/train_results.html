@@ -1,0 +1,32 @@
+{% extends 'main/base.html' %}
+
+{% block title %}
+Training Results
+{% endblock %}
+
+{% block content %}
+    <div class="container mt-5">
+        <h1 class="mb-4">Training Results</h1>
+        <hr>
+        <h4>Target column: {{ target_column }}</h4>
+        <hr>
+        <ul class="list-group">
+            {% for result in results %}
+                {% if "Best Model:" in result %}
+                    <li class="list-group-item list-group-item-success fw-bold">
+                        ⭐ {{ result }}
+                    </li>
+                {% elif "Best Model MSE:" in result or "Best Model Accuracy:" in result %}
+                    <li class="list-group-item list-group-item-warning fw-bold">
+                        🔹 {{ result }}
+                    </li>
+                {% else %}
+                    <li class="list-group-item">{{ result }}</li>
+                {% endif %}
+            {% endfor %}
+        </ul>
+        <a href="{% url 'shap' %}">
+            <button type="submit"  class="btn btn-success mt-3">Final analisys</button>
+        </a>
+    </div>
+{% endblock %}

@@ -1,0 +1,89 @@
+{% extends 'main/base.html' %}
+
+{% block title %}
+    Visualizations
+{% endblock %}
+
+{% block content %}
+    <div class="container mt-3">
+        <h1 class="text-center mb-4">Create Visualizations</h1>
+        <hr>
+
+        <!-- שני טפסים לבחירת המשתמש -->
+        <div class="row justify-content-between">
+            <div class="col-md-4">
+                <form method="post">
+                    <h5>Plot the distribution of a column that you would like to see:</h5>
+                    <hr>
+                    {% csrf_token %}
+                    {{ column_form.as_p }}
+                    <input type="hidden" name="single_column" value="1">
+                    <button type="submit" class="btn btn-primary w-100">Plot distribution</button>
+                </form>
+            </div>
+        
+            <div class="col-md-4">
+                <form method="post">
+                    {% csrf_token %}
+                    <h5>Plot a conntection between 2 columns that you want:</h5>
+                    <hr>
+                    {{ pair_form.as_p }}
+                    <input type="hidden" name="column_pair" value="1">
+                    <button type="submit" class="btn btn-success">Plot connection</button>
+                </form>
+            </div>
+        </div>
+        
+
+        <hr>
+
+        <!-- הצגת תיאורים (אם קיימים) -->
+        {% if descriptions %}
+            <h3 class="text-center">תיאורים</h3>
+            <div class="row">
+                {% for desc in descriptions %}
+                    <div class="col-md-12">
+                        <div style="overflow-x: auto;">{{ desc|safe }}</div>
+                    </div>
+                {% endfor %}
+            </div>
+            <hr>
+        {% endif %}
+
+        <!-- אזור להצגת הגרפים -->
+        {% if visuals %}
+            <h3 class="text-center">Visualization results</h3>
+            <div class="row justify-content-center">
+                {% for visual in visuals %}
+                    <div class="col-md-8 d-flex flex-column align-items-center text-center">
+                        <h5>{{ visual.title }}</h5>
+                        
+                        <!-- גרף עם אפשרות לפתיחה במסך מלא -->
+                        <img src="data:image/png;base64,{{ visual.img }}" class="img-fluid rounded shadow clickable-img" onclick="openFullScreen(this)">
+                        
+                        <!-- כפתור הורדה -->
+                        <a href="data:image/png;base64,{{ visual.img }}" download="graph_{{ forloop.counter }}.png" class="btn btn-primary btn-md w-100 mt-2">
+                            Download image
+                        </a>
+                    </div>
+                {% endfor %}
+            </div>
+            <script>
+                function openFullScreen(imgElement) {
+                    let fullScreenWindow = window.open("", "_blank");
+                    fullScreenWindow.document.write("<html><head><title>Full Screen Graph</title></head><body style='margin:0; display:flex; justify-content:center; align-items:center; height:100vh; background-color:black;'>");
+                    fullScreenWindow.document.write("<img src='" + imgElement.src + "' style='max-width:100%; max-height:100%;'>");
+                    fullScreenWindow.document.write("</body></html>");
+                }
+            </script>
+            
+        {% endif %}
+
+
+
+        <!-- כפתור מעבר לעמוד הבא -->
+        <div class="text-center mt-4">
+            <a href="{% url 'train_models' %}" class="btn btn-success btn-md w-100 mt-2">Go to modeling</a>
+        </div>
+    </div>
+{% endblock %}

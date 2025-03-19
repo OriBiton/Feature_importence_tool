@@ -1,0 +1,36 @@
+{% extends 'main/base.html' %}
+
+{% block title %}
+    Upload File
+{% endblock %}
+
+{% block content %}
+    <h1 class="mb-4">Please upload a CSV File</h1>
+    <hr>
+
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+
+        <div class="form-group">
+            <label for="file">Select a CSV file:</label>
+            <div class="custom-file">
+                <input type="file" class="custom-file-input" id="file" name="file">
+                <label class="custom-file-label" for="file">Choose file</label>
+            </div>
+        </div>
+        <a href="{% url 'results' %}">
+            <button type="submit" class="btn btn-success mt-3">Upload</button>
+        </a>
+    </form>
+
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+    <script>
+        // מציג את שם הקובץ הנבחר
+        $(".custom-file-input").on("change", function() {
+            var fileName = $(this).val().split("\\").pop();
+            $(this).siblings(".custom-file-label").addClass("selected").html(fileName);
+        });
+    </script>
+{% endblock %}
+
+   

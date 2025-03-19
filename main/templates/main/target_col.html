@@ -1,0 +1,24 @@
+{% extends 'main/base.html' %}
+{% block title %}
+Target Culumn 
+{% endblock %}
+
+{% block content %}
+ <h1>Choose Target culumn:</h1>
+ <hr>
+ <form method="post" class="form-container" >
+    {% csrf_token %}
+    <div class="form-section">
+        {{form_target.as_p}}
+    </div>
+    <hr>
+    <h5>Please choose if you want to see basic visualizations also</h5>
+    <div>
+        {{form_show.as_p}}
+    </div>
+    <hr>
+    <button type="submit"  class="btn btn-success">Next</button>
+
+ </form>
+
+{% endblock %}

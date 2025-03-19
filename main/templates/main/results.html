@@ -1,0 +1,21 @@
+{% extends 'main/base.html' %}
+
+{% block title %}
+    Database Preview
+{% endblock %}
+
+{% block content %}
+    <div class="d-flex flex-column align-items-center justify-content-center" style="min-height: 100vh; padding: 20px; gap: 20px;">
+        <h1>Data Preview</h1>
+        <hr style="width: 100%; border: 1px solid rgb(69, 67, 67);">
+
+        <div class="table table-striped d-flex justify-content-center">
+            <div style="max-width: 800px; width: 100%; font-size: 12px; overflow-x: auto;">
+                {{ table | safe }}
+            </div>
+        </div>
+        <a href="{% url 'target_col' %}">
+            <button type="submit" class="btn btn-success mt-3">Next</button>
+        </a>
+    </div>
+{% endblock %}
