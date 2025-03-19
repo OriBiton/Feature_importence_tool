@@ -121,7 +121,8 @@ USE_TZ = True
 
 
 STATIC_URL = '/static/'
-
+STATIC_ROOT = BASE_DIR / 'staticfiles'  # Django ייצור את זה אוטומטית
+STATICFILES_DIRS = [BASE_DIR / 'static']  # תיקיית הקבצים הסטטיים שלך
 
 
 # Default primary key field type
