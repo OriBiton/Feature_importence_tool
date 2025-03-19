@@ -25,9 +25,11 @@ SECRET_KEY = 'django-insecure-m%vntdw^==-u1))t%x$*2u1yl#wm8(im&&a%!!8)k67z+_)mdp
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["featureimportencetool-production.up.railway.app"]
 
-
+CSRF_TRUSTED_ORIGINS = [
+    "https://featureimportencetool-production.up.railway.app",
+]
 # Application definition
 
 INSTALLED_APPS = [
