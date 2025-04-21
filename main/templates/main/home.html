@@ -1,21 +1,34 @@
 {% extends 'main/base.html' %}
 {% block content %}
-    <h1>Home Page</h1>
-    <hr>
-    <h2>Welcome to Our Final Project</h2>  
-    <p>We have developed a powerful tool designed to streamline the feature importance analysis process and provide deeper insights into your data. Our tool offers an end-to-end solution, including:</p>
+<div class="container-fluid d-flex justify-content-center align-items-start mt-5 mb-5" style="min-height: 90vh;">
+    <div class="card shadow-lg p-4 text-center w-100" style="max-width: 900px; font-family: 'Segoe UI', sans-serif;">
+        
+        <h1 class="mb-4">Home Page</h1>
+        <hr class="mb-5">
 
-    <ul>
-        <li><strong>📊 Data Visualization:</strong> Gain a clear understanding of your dataset through interactive visualizations.</li>
-        <li><strong>🛠️ Data Preprocessing:</strong> Automatically clean and preprocess your data for optimal performance.</li>
-        <li><strong>🤖 Machine Learning Modeling:</strong> Train predictive models efficiently with minimal effort.</li>
-        <li><strong>🔥 Feature Importance Analysis:</strong> Identify the most influential features using advanced SHAP-based techniques.</li>
-    </ul>
+        <h2 class="mb-4">Welcome to Our Final Project</h2>
 
-    <p>🚀 Simply upload your dataset, specify your target column, and let our tool handle the rest.  
-    With just a few clicks, you can explore key insights, optimize models, and enhance decision-making.</p>
+        <p class="mb-4 text-justify">
+            We have developed a powerful tool designed to streamline the feature importance analysis process and provide deeper insights into your data.  
+            Our tool offers an end-to-end solution, including:
+        </p>
 
-    <a href="{% url 'upload' %}">
-        <button type="submit" name="newItem" value="newItem" class="btn btn-success">Next</button>
-    </a>
+        <ul class="text-left mb-5" style="line-height: 1.9;">
+            <li><strong>📊 Data Visualization:</strong> Gain a clear understanding of your dataset through interactive visualizations.</li>
+            <li><strong>🛠️ Data Preprocessing:</strong> Automatically clean and preprocess your data for optimal performance.</li>
+            <li><strong>🤖 Machine Learning Modeling:</strong> Train predictive models efficiently with minimal effort.</li>
+            <li><strong>🔥 Feature Importance Analysis:</strong> Identify the most influential features using advanced SHAP-based techniques.</li>
+        </ul>
+
+        <p class="mb-5">
+            🚀 Simply upload your dataset, specify your target column, and let our tool handle the rest.  
+            With just a few clicks, you can explore key insights, optimize models, and enhance decision-making.
+        </p>
+
+        <a href="{% url 'upload' %}">
+            <button type="submit" class="btn btn-success px-5 py-2">Next</button>
+        </a>
+
+    </div>
+</div>
 {% endblock %}

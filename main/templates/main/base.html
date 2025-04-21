@@ -21,7 +21,7 @@
             min-height: 100vh;
             margin: 0;
             padding: 70px 10px 10px;
-            background: linear-gradient(135deg, #ffffff, #ffffff);
+            background: linear-gradient(135deg, #bebebe5d, #dadada);
             background-attachment: fixed;
         }   
     
@@ -120,10 +120,13 @@
         <div class="container mt-4">
     
             <!-- תוכן -->
-            <div class="col-8 mx-auto">
-                {% block content %}
-                {% endblock %}
+            <div class="w-100 d-flex justify-content-center">
+                <div style="width: 100%; max-width: 1400px;">
+                    {% block content %}
+                    {% endblock %}
+                </div>
             </div>
+            
     
         </div>
     

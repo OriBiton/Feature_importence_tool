@@ -1,36 +1,45 @@
 {% extends 'main/base.html' %}
 
 {% block title %}
-    Upload File
+    Upload CSV
 {% endblock %}
 
 {% block content %}
-    <h1 class="mb-4">Please upload a CSV File</h1>
-    <hr>
+<div class="container-fluid d-flex justify-content-center " style="min-height: 90vh;">
+    <div class="card shadow-lg p-5 text-center w-100" style="max-width: 700px; font-family: 'Segoe UI', sans-serif;">
 
-    <form method="post" enctype="multipart/form-data">
-        {% csrf_token %}
+        <h1 class="mb-3" style="font-size: 2.2rem;">📂 Upload Your Dataset</h1>
+        <p class="mb-4 text-muted">Please upload a CSV file to begin analyzing your data.</p>
 
-        <div class="form-group">
-            <label for="file">Select a CSV file:</label>
-            <div class="custom-file">
-                <input type="file" class="custom-file-input" id="file" name="file">
-                <label class="custom-file-label" for="file">Choose file</label>
+        <hr class="mb-4">
+
+        <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+
+            <div class="form-group">
+                <label for="file" class="font-weight-bold">Select a CSV file:</label>
+                <div class="custom-file">
+                    <input type="file" class="custom-file-input" id="file" name="file" required>
+                    <label class="custom-file-label text-left" for="file">Choose file</label>
+                </div>
             </div>
-        </div>
-        <a href="{% url 'results' %}">
-            <button type="submit" class="btn btn-success mt-3">Upload</button>
-        </a>
-    </form>
 
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
-    <script>
-        // מציג את שם הקובץ הנבחר
-        $(".custom-file-input").on("change", function() {
-            var fileName = $(this).val().split("\\").pop();
-            $(this).siblings(".custom-file-label").addClass("selected").html(fileName);
-        });
-    </script>
+            <button type="submit" class="btn btn-success btn-lg mt-4 px-5">
+                <i class="fas fa-upload mr-2"></i> Upload
+            </button>
+        </form>
+
+        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+        <script>
+            $(".custom-file-input").on("change", function () {
+                var fileName = $(this).val().split("\\").pop();
+                $(this).siblings(".custom-file-label").addClass("selected").html(fileName);
+            });
+        </script>
+
+    </div>
+</div>
 {% endblock %}
+
 
    

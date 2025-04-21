@@ -1,21 +1,32 @@
 {% extends 'main/base.html' %}
 
 {% block title %}
-    Database Preview
+    Data Preview
 {% endblock %}
 
 {% block content %}
-    <div class="d-flex flex-column align-items-center justify-content-center" style="min-height: 100vh; padding: 20px; gap: 20px;">
-        <h1>Data Preview</h1>
-        <hr style="width: 100%; border: 1px solid rgb(69, 67, 67);">
+<div class="container-fluid d-flex justify-content-center align-items-start mt-5 mb-5" style="min-height: 90vh;">
+    <div class="card shadow-lg p-5 w-100 text-center" style="max-width: 1000px; font-family: 'Segoe UI', sans-serif;">
 
-        <div class="table table-striped d-flex justify-content-center">
-            <div style="max-width: 800px; width: 100%; font-size: 12px; overflow-x: auto;">
-                {{ table | safe }}
+        <h1 class="mb-3">🗂️ Data Preview</h1>
+        <p class="text-muted mb-4">Here is a preview of your uploaded dataset. Make sure everything looks correct before continuing.</p>
+
+        <hr class="mb-4">
+
+        <div class="table-responsive rounded shadow-sm">
+            <div class="table-responsive">
+                <div class="table table-bordered table-hover table-striped text-center" style="font-size: 13px;">
+                    {{ table|safe }}
+                </div>
             </div>
+            
         </div>
+
         <a href="{% url 'target_col' %}">
-            <button type="submit" class="btn btn-success mt-3">Next</button>
+            <button type="submit" class="btn btn-success btn-lg mt-4 px-5">Next</button>
         </a>
     </div>
+</div>
 {% endblock %}
+
+

@@ -1,24 +1,35 @@
 {% extends 'main/base.html' %}
 {% block title %}
-Target Culumn 
+    Target Column
 {% endblock %}
 
 {% block content %}
- <h1>Choose Target culumn:</h1>
- <hr>
- <form method="post" class="form-container" >
-    {% csrf_token %}
-    <div class="form-section">
-        {{form_target.as_p}}
-    </div>
-    <hr>
-    <h5>Please choose if you want to see basic visualizations also</h5>
-    <div>
-        {{form_show.as_p}}
-    </div>
-    <hr>
-    <button type="submit"  class="btn btn-success">Next</button>
+<div class="container-fluid d-flex justify-content-center align-items-start mt-5 mb-5" style="min-height: 90vh;">
+    <div class="card shadow-lg p-5 text-center w-100" style="max-width: 800px; font-family: 'Segoe UI', sans-serif;">
 
- </form>
+        <h1 class="mb-3">🎯 Choose Target Column</h1>
+        <p class="text-muted mb-4">Please select the column that you want to use as the prediction target.</p>
 
+        <hr class="mb-4">
+
+        <form method="post">
+            {% csrf_token %}
+
+            <div class="form-group mb-4 text-left">
+                {{ form_target.label_tag }}  
+                {{ form_target }}
+            </div>
+
+            <h5 class="mb-3 text-left">📊 Would you like to see basic visualizations?</h5>
+
+            <div class="form-group mb-4 text-left">
+                {{ form_show.label_tag }}
+                {{ form_show }}
+            </div>
+
+            <button type="submit" class="btn btn-success btn-lg mt-3 px-5">Next</button>
+        </form>
+
+    </div>
+</div>
 {% endblock %}

@@ -1,135 +1,95 @@
 {% extends 'main/base.html' %}
 
 {% block title %}
-SHAP Analysis
+    SHAP Analysis
 {% endblock %}
 
 {% block content %}
+<div class="container-fluid d-flex justify-content-center align-items-start mt-5 mb-5" style="min-height: 90vh;">
+    <div class="card shadow-lg p-5 w-100" style="max-width: 1000px; font-family: 'Segoe UI', sans-serif;">
 
+        <!-- כותרת ראשית -->
+        <h1 class="text-center mb-3">📊 SHAP Analysis</h1>
+        <p class="text-center text-muted mb-4">Interpretability results using SHAP values.</p>
+        <hr>
 
+        <!-- הפיצ'ר החשוב ביותר -->
+        <h5 class="text-center mb-4">🔍 Most Important Feature: <span class="text-primary">{{ selected_feature }}</span></h5>
 
-<div class="container mt-5">
-    <h1 class="text-center mb-4"><strong>SHAP Analysis</strong></h1>
-    <hr
-
-    <!-- הצגת הפיצ'ר החשוב ביותר -->
-    <h4 class="text-center">the most Importent feature is: <strong>{{ selected_feature }}</strong></h4>
-
-    <hr>
-
-    <h3><strong>Summery Plot</strong></h3>
-    <h4 class="text-center mt-4">Key Components of a SHAP Summary Plot</h4>
-
-    <!-- רשימה מעוצבת עם רקע שקוף -->
-    <div class="container mt-3" style="background: rgba(255, 255, 255, 0.0); padding: 15px; border-radius: 10px;">
-        <ol class="list-group list-group-numbered border-0" style="background: transparent;">
-            
-            <!-- Feature Importance -->
-            <li class="list-group-item border-0" style="background: transparent;">
-                <strong>Y-Axis (Feature Names)</strong>
-                <ul>
-                    <li>Lists the most important features ranked by their impact on the model’s predictions.</li>
-                    <li>Features at the <strong>top</strong> have the <strong>highest influence</strong>, while those at the <strong>bottom</strong> contribute the least.</li>
-                </ul>
+        <!-- Summery Plot הסברים -->
+        <h4 class="mt-5 mb-3">📈 Summary Plot Explained</h4>
+        <ul class="list-group list-group-flush mb-4">
+            <li class="list-group-item">
+                <strong>Y-Axis:</strong> Features ranked by importance (top = most impactful).
             </li>
-
-            <!-- SHAP Value Impact -->
-            <li class="list-group-item border-0" style="background: transparent;">
-                <strong>X-Axis (SHAP Values)</strong>
-                <ul>
-                    <li>Represents the magnitude and direction of a feature’s impact on the model’s output.</li>
-                    <li><strong>Positive SHAP values</strong> (right) indicate an <strong>increase</strong> in the predicted outcome.</li>
-                    <li><strong>Negative SHAP values</strong> (left) indicate a <strong>decrease</strong> in the predicted outcome.</li>
-                    <li>Values close to <strong>zero</strong> suggest that the feature has little to no impact.</li>
-                </ul>
+            <li class="list-group-item">
+                <strong>X-Axis (SHAP Values):</strong> Impact direction & strength. Right = positive, Left = negative.
             </li>
-
-            <!-- Color Gradient -->
-            <li class="list-group-item border-0" style="background: transparent;">
-                <strong>Color Gradient (Feature Value Intensity)</strong>
-                <ul>
-                    <li>The color of each point represents the actual feature value:</li>
-                    <li><span style="color: red;"><strong>Red (or pink):</strong></span> Higher feature values.</li>
-                    <li><span style="color: blue;"><strong>Blue (or purple):</strong></span> Lower feature values.</li>
-                    <li>This helps visualize whether high or low values contribute positively or negatively to the prediction.</li>
-                </ul>
+            <li class="list-group-item">
+                <strong>Color Gradient:</strong> Red = high feature value, Blue = low feature value.
             </li>
-
-            <!-- Dot Distribution -->
-            <li class="list-group-item border-0" style="background: transparent;">
-                <strong>Dot Distribution</strong>
-                <ul>
-                    <li>Each dot represents an individual data point.</li>
-                    <li>A <strong>wider spread</strong> indicates a feature whose effect varies significantly across different data points.</li>
-                    <li>A <strong>narrow spread</strong> suggests the feature has a more consistent effect.</li>
-                </ul>
+            <li class="list-group-item">
+                <strong>Dot Spread:</strong> Wider = variable impact, Narrower = consistent.
             </li>
+        </ul>
 
-        </ol>
-    </div>
+        <!-- גרף Summary -->
+        <div class="text-center mb-5">
+            {% if summary_plot %}
+                <img src="data:image/png;base64,{{ summary_plot }}" class="img-fluid rounded shadow">
+            {% else %}
+                <p class="text-danger">No summary plot available.</p>
+            {% endif %}
+        </div>
 
-    <!-- הצגת הגרף - ממורכז כמו ההסבר -->
-    <div class="text-center mt-4">
-        {% if summary_plot %}
-            <img src="data:image/png;base64,{{ summary_plot }}" class="img-fluid rounded shadow">
+        <hr>
+
+        <!-- גרף חשיבות פיצ'רים -->
+        <h4 class="mb-3">🏆 Top 10 Most Important Features</h4>
+        {% if feature_importance_plot %}
+            <img src="data:image/png;base64,{{ feature_importance_plot }}" class="img-fluid rounded shadow mb-4">
         {% else %}
-            <p class="text-center text-danger mt-3">No summary plot available.</p>
+            <p class="text-muted">No feature importance plot available.</p>
         {% endif %}
-    </div>
 
+        <hr>
 
+        <!-- גרף תלות -->
+        <h4 class="mb-3">🔗 Dependence Plot</h4>
+        {% if dependence_plot %}
+            <img src="data:image/png;base64,{{ dependence_plot }}" class="img-fluid rounded shadow mb-4">
+        {% else %}
+            <p class="text-muted">No dependence plot available.</p>
+        {% endif %}
 
+        <hr>
 
+        <!-- גרף אינטראקציות -->
+        <h4 class="mb-3">🧩 Interaction Plot</h4>
+        {% if interaction_plot %}
+            <img src="data:image/png;base64,{{ interaction_plot }}" class="img-fluid rounded shadow mb-4">
+        {% else %}
+            <p class="text-muted">There isn’t strong interaction; the features work better separately.</p>
+        {% endif %}
 
-    <hr>
+        <hr>
 
-    <!-- גרף חשיבות פיצ'רים -->
-    <h3><strong>Top 10 most importent features:</strong></h3>
-    {% if feature_importance_plot %}
-        <img src="data:image/png;base64,{{ feature_importance_plot }}" class="img-fluid mb-4">
-    {% else %}
-        <p>אין חשיבות פיצ'רים זמינה</p>
-    {% endif %}
-
-    <hr>
-
-    <!-- גרף תלות לפיצ'ר החשוב ביותר -->
-    <h3><strong>dependence plot: </strong></h3>
-    {% if dependence_plot %}
-        <img src="data:image/png;base64,{{ dependence_plot }}" class="img-fluid mb-4">
-    {% else %}
-        <p>אין גרף תלות זמין</p>
-    {% endif %}
-
-    <hr>
-
-    <!-- גרף אינטראקציות בין פיצ'רים -->
-    <h3><strong>Interaction plot</strong></h3>
-    {% if interaction_plot %}
-        <img src="data:image/png;base64,{{ interaction_plot }}" class="img-fluid mb-4">
-    {% else %}
-        <p>There isn’t strong interaction; the features work better separately.</p>
-    {% endif %}
-
-    <hr>
-
-    <div class="d-flex flex-column align-items-center justify-content-center" style="min-height: 100vh; padding: 20px; gap: 20px;">
-        <h3><strong>Feature importance table:</strong></h3></h1>
-        <div class="table table-striped d-flex justify-content-center">
-            <div style="max-width: 800px; width: 100%; font-size: 12px; overflow-x: auto;">
-                {{  feature_impact_table | safe }}
+        <!-- טבלת השפעה -->
+        <h4 class="mb-3 text-center">📋 Feature Importance Table</h4>
+        <div class="table-responsive mb-4">
+            <div class="table table-bordered table-striped text-center" style="font-size: 13px;">
+                {{ feature_impact_table | safe }}
             </div>
         </div>
-        
-    </div>
-    <hr>
 
-    <!-- כפתור חזרה לעמוד הבית -->
-    <div class="mt-4">
-        <a href="{% url 'home' %}" class="btn btn-primary btn-lg">
-            Back to Home
-        </a>
-    </div>
+        <hr>
 
+        <!-- כפתור חזרה -->
+        <div class="text-center mt-4">
+            <a href="{% url 'home' %}" class="btn btn-primary btn-lg px-5">
+                ⬅ Back to Home
+            </a>
+        </div>
+    </div>
 </div>
 {% endblock %}

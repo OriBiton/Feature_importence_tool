@@ -1,32 +1,44 @@
 {% extends 'main/base.html' %}
 
 {% block title %}
-Training Results
+    Training Results
 {% endblock %}
 
 {% block content %}
-    <div class="container mt-5">
-        <h1 class="mb-4">Training Results</h1>
+<div class="container-fluid d-flex justify-content-center align-items-start mt-5 mb-5" style="min-height: 90vh;">
+    <div class="card shadow-lg p-5 w-100" style="max-width: 900px; font-family: 'Segoe UI', sans-serif;">
+
+        <h1 class="text-center mb-3">🤖 Training Results</h1>
+        <p class="text-center text-muted mb-4">Below are the results of your model training process.</p>
+
         <hr>
-        <h4>Target column: {{ target_column }}</h4>
-        <hr>
-        <ul class="list-group">
+
+        <h5 class="mb-4">🎯 Target Column: <span class="text-primary">{{ target_column }}</span></h5>
+
+        <ul class="list-group mb-4">
             {% for result in results %}
                 {% if "Best Model:" in result %}
-                    <li class="list-group-item list-group-item-success fw-bold">
-                        ⭐ {{ result }}
+                    <li class="list-group-item list-group-item-success font-weight-bold">
+                        🌟 <strong>{{ result }}</strong>
                     </li>
                 {% elif "Best Model MSE:" in result or "Best Model Accuracy:" in result %}
-                    <li class="list-group-item list-group-item-warning fw-bold">
-                        🔹 {{ result }}
+                    <li class="list-group-item list-group-item-warning font-weight-bold">
+                        📊 <strong>{{ result }}</strong>
                     </li>
                 {% else %}
                     <li class="list-group-item">{{ result }}</li>
                 {% endif %}
             {% endfor %}
         </ul>
-        <a href="{% url 'shap' %}">
-            <button type="submit"  class="btn btn-success mt-3">Final analisys</button>
-        </a>
+
+        <div class="text-center mt-4">
+            <a href="{% url 'shap' %}">
+                <button type="submit" class="btn btn-success btn-lg px-5">
+                    🔍 Final Analysis
+                </button>
+            </a>
+        </div>
+
     </div>
+</div>
 {% endblock %}

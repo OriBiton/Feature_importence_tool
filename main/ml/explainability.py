@@ -119,7 +119,7 @@ def explain_model_with_shap(model, X_train):
         'Relative Importance (%)': relative_importance,
         'Impact Category': impact_categories
     }).sort_values(by='Relative Importance (%)', ascending=False)
-    feature_impact_df=feature_impact_df[feature_impact_df['Relative Importance (%)']>0]
+    feature_impact_df=feature_impact_df[feature_impact_df['Relative Importance (%)']>0.05]
     # הוספת הטבלה ל-results
     results['feature_impact_table'] = feature_impact_df.to_html()
     
